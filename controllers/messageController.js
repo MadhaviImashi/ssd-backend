@@ -14,7 +14,7 @@ const getMessageHistoryByUserId = async (req, response) => {
         })
     }
     catch (err) {
-        console.log(err);
+        console.log(err, "couldn't fetch msg history");
     }
 }
 
