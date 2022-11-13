@@ -2,7 +2,8 @@ const User = require("../models/user");
 const Message = require("../models/message");
 
 const getMessageHistoryByUserId = async (req, response) => {
-    const user_id = req.body.user_id;
+    console.log('req', req.query.user_id)
+    const user_id = req.query.user_id;
 
     try {
         const user = await User.findById(user_id)
@@ -10,6 +11,7 @@ const getMessageHistoryByUserId = async (req, response) => {
         response.status(200).json({
             success: true,
             message: "GET saved messages",
+            user_name: user.name,
             msgHistory: user.messageHistory
         })
     }
