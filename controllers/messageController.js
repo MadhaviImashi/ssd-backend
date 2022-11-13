@@ -2,7 +2,20 @@ const User = require("../models/user");
 const Message = require("../models/message");
 
 const getMessageHistoryByUserId = async (req, response) => {
+    const user_id = req.body.user_id;
 
+    try {
+        const user = await User.findById(user_id)
+            .populate("messageHistory")
+        response.status(200).json({
+            success: true,
+            message: "GET saved messages",
+            msgHistory: user.messageHistory
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 const saveMessage = async (req, response) => {
