@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
+const messageRoutes = require('./routes/message');
 
 require('dotenv').config();
 
@@ -26,6 +27,7 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('/api/auth', authRoutes); 
+app.use('/api/message', messageRoutes);
 // https://eadfuelapp.herokuapp.com/api/auth/register                   [POST]
 // https://eadfuelapp.herokuapp.com/api/auth/login                      [POST]
 
