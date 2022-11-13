@@ -12,36 +12,32 @@ exports.signup = async (req, res, next) => {
             success: false,
             message: "Validation failed"
         })
-        //throw error to stop registering this user again
-        const error = new Error('Validation failed.');
-        error.statusCode = 422;
-        error.data = errors.array();
-        throw error;
     }
-
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-    const mobile = req.body.mobile;
-    const type = req.body.type;
-
-    try {
-        const hashedPw = await bcrypt.hash(password, 12);
-
-        const user = new User({
-            email,
-            password: hashedPw,
-            name,
-            mobile,
-            type
-        });
-        const result = await user.save();
-        res.status(201).json({ success: true, message: 'User created!', userId: result._id });
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
+    else {
+        const name = req.body.name;
+        const email = req.body.email;
+        const password = req.body.password;
+        const mobile = req.body.mobile;
+        const type = req.body.type;
+    
+        try {
+            const hashedPw = await bcrypt.hash(password, 12);
+    
+            const user = new User({
+                email,
+                password: hashedPw,
+                name,
+                mobile,
+                type
+            });
+            const result = await user.save();
+            res.status(201).json({ success: true, message: 'User created!', userId: result._id });
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
         }
-        next(err);
     }
 };
 
