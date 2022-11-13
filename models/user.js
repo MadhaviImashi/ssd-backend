@@ -20,7 +20,13 @@ const userSchema = new Schema({
     type: {
         type: String,
         default: 'worker', /* 'admin', 'worker', 'manager' */
-    }
+    },
+    messageHistory: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Message'
+        }
+    ]
 });
 
 module.exports = mongoose.model('User', userSchema);
