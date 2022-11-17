@@ -54,6 +54,10 @@ mongoose
             cert: fs.readFileSync(path.join(__dirname, 'certification', 'cert.pem'))
         }, app);
 
-        sslServer.listen(process.env.PORT || 4000, () => console.log('Secure server running on port 4000'));
+        if (process.env.NODE_ENV !== 'test') {
+            sslServer.listen(process.env.PORT || 4000, () => console.log('Secure server running on port 4000'));
+        }
     })
     .catch(err => console.log(err));
+
+module.exports = app;
